@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Juego del Ahorcado</title>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="game.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="heart.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  </head>
+  <body>
+    <h1>Juego del Ahorcado</h1>
+    <div id="loginArea">
+      <label for="playerName">Nombre del jugador:</label>
+      <input type="text" id="playerName" />
+      <br />
+      <label for="difficulty">Selecciona la dificultad:</label>
+      <select id="difficulty">
+        <option value="facil">Fácil</option>
+        <option value="avanzado">Avanzado</option>
+      </select>
+      <br />
+      <button id="startGame">
+        <i class="fas fa-play"></i>
+        Comenzar Juego
+      </button>
+    </div>
+    <div id="gameArea" class="hidden">
+      <h2>¡Adivina la palabra!</h2>
+      <p id="playerNameDisplay"></p>
+
+      <p id="word"></p>
+      <div id="attempts"></div>
+      <p id="clue"></p>
+      <input type="text" id="guess" maxlength="1" />
+      <button id="submitGuess">
+        <i class="fas fa-check"></i>
+        Adivinar
+      </button>
+    </div>
+    <div id="statsArea">
+      <h2>Tabla de jugadores</h2>
+      <table id="playerTable">
+        <thead>
+          <tr>
+            <th>Nombre del jugador</th>
+            <th>Partidas jugadas</th>
+            <th>Partidas ganadas</th>
+            <th>Partidas perdidas</th>
+            <th>Porcentaje de victorias</th>
+            <th>Mas Detalles</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <h3 id="chartAreaTitle" class="hidden">Estadísticas del jugador</h3>
+      <div id="chartArea" class="hidden">
+        <div id="difficultyChart"></div>
+        <div id="resultChart"></div>
+      </div>
+    </div>
+  </body>
+</html>
