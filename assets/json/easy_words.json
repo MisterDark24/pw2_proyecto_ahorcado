@@ -1,0 +1,23 @@
+[
+  {
+    "word": "CASA",
+    "clue": [
+      "Es un lugar seguro",
+      "Es un lugar confortable",
+      "Es un lugar donde vives"
+    ]
+  },
+
+  {
+    "word": "PERRO",
+    "clue": ["Es un animal", "Es un animal domestico", "Es un animal que ladra"]
+  },
+  {
+    "word": "COCHE",
+    "clue": [
+      "Es un medio de transporte",
+      "Sirve para desplazarse",
+      "Te lleva al trabajo"
+    ]
+  }
+]
