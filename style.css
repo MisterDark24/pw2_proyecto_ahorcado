@@ -10,6 +10,7 @@
   --text-color: #333333;
   --border-color: #333;
   --background-color: #e8f5e9;
+  --error-color: #f44336;
 }
 
 html {
@@ -121,4 +122,115 @@ button:hover {
   #resultChart {
     width: 50%;
   }
+}
+
+#btnAudioPlayer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: none;
+  cursor: pointer;
+}
+
+#btnAudioPlayer i {
+  font-size: 24px;
+  margin-right: 5px;
+}
+
+#btnAudioPlayer.hidden {
+  display: none;
+}
+
+#audioPlayer {
+  position: fixed;
+  bottom: 20px;
+  right: 25px;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#audioPlayer.hidden {
+  display: none;
+}
+
+#audioPlayer button {
+  background: none;
+  border: none;
+  color: var(--white-color);
+  cursor: pointer;
+  padding: 0 10px;
+}
+
+#audioPlayer button i {
+  font-size: 24px;
+}
+
+#audioPlayer input[type="range"] {
+  appearance: none;
+  width: 100px;
+  height: 5px;
+  background: var(--white-color);
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.modal-content h2 {
+  color: var(--primary-color);
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.error-text {
+  color: var(--error-color) !important;
 }

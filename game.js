@@ -7,6 +7,37 @@ var intentos = 0; // Intentos restantes
 var palabraMostrada = ""; // Palabra oculta que se va mostrando con las letras adivinadas
 var nombreJugador = ""; // Nombre del jugador
 var dificultad = ""; // Dificultad seleccionada
+var isPlayingSound = false; // Variable que indica si la musica esta sonando o no
+var audio = new Audio("assets/audio/Common Fight.ogg"); // Musica de fondo
+
+var FrasesWin = [
+  "¡Eres un ganador!",
+  "¡Bien hecho!",
+  "¡Excelente trabajo!",
+  "¡Eres un campeón!",
+  "¡Eres un genio!",
+  "¡Eres un maestro!",
+  "¡Eres un experto!",
+  "¡Eres un héroe!",
+  "¡Eres un crack!",
+  "¡Eres un as!",
+  "¡Eres un prodigio!",
+];
+
+var FrasesLose = [
+  "¡No te rindas!",
+  "¡Sigue intentando!",
+  "¡No te desanimes!",
+  "¡Sigue adelante!",
+  "¡No te preocupes!",
+  "¡Sigue practicando!",
+  "¡No te desesperes!",
+  "¡Sigue luchando!",
+  "¡No te desalientes!",
+  "¡Sigue esforzándote!",
+  "¡No te desmotives!",
+];
+
 // Datos de los jugadores
 var juegos = [
   {
@@ -134,12 +165,18 @@ function verificarFinJuego() {
   // Verificar si la palabra oculta es igual a la palabra seleccionada
   if (palabraMostrada === palabraSeleccionada) {
     // Si es igual, mostrar mensaje de victoria y registrar estadistica
-    alert("¡Felicidades, ganaste!");
+    $("#winMessage").text(
+      FrasesWin[Math.floor(Math.random() * FrasesWin.length)]
+    );
+    $("#winModal").css("display", "block");
     registrarEstadistica(true);
     resetGame();
   } else if (intentos <= 0) {
     // Si se acabaron los intentos, mostrar mensaje de derrota y registrar estadistica
-    alert("¡Lo siento, perdiste! La palabra era: " + palabraSeleccionada);
+    $("#loseMessage").text(
+      FrasesLose[Math.floor(Math.random() * FrasesLose.length)]
+    );
+    $("#loseModal").css("display", "block");
     registrarEstadistica(false);
     resetGame();
   }
@@ -262,8 +299,11 @@ function dibujarGraficos(nombreJugador) {
 
 function actualizarTabla() {
   /* Esta funcion se encarga de actualizar la tabla de estadisticas de los jugadores */
+  let sortedJuegos = juegos.sort(
+    (a, b) => b.porcentajeVictorias - a.porcentajeVictorias
+  );
   let tableHtml = "";
-  juegos.forEach((juego) => {
+  sortedJuegos.forEach((juego) => {
     tableHtml += `<tr>
       <td>${juego.nombre}</td>
       <td>${juego.partidasJugadas}</td>
@@ -284,29 +324,18 @@ function actualizarTabla() {
   $("#playerTable > tbody").html(tableHtml);
 }
 
-// Funciones de musica
-function playAudio() {
-  /* Esta funcion se encarga de reproducir la musica de fondo */
-  try {
-    var audio = new Audio("assets/audio/Common Fight.ogg");
-    audio.loop = true;
-    // Delay de un 5 segundos para que no de error
-    setTimeout(function () {
-      audio.play();
-    }, 5000);
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 // Eventos de la pagina
-$(document).ready(async function () {
+$(document).ready(function () {
   // Cargar palabras de los archivos JSON
-  palabrasFaciles = await fetch("./assets/json/easy_words.json").then(
-    (response) => response.json()
+  fetch("./assets/json/easy_words.json").then((response) =>
+    response.json().then((data) => {
+      palabrasFaciles = data;
+    })
   );
-  palabrasAvanzadas = await fetch("./assets/json/hard_words.json").then(
-    (response) => response.json()
+  fetch("./assets/json/hard_words.json").then((response) =>
+    response.json().then((data) => {
+      palabrasAvanzadas = data;
+    })
   );
 
   // Cargar libreria de Google Charts
@@ -318,7 +347,8 @@ $(document).ready(async function () {
     dificultad = $("#difficulty").val();
 
     if (!nombreJugador) {
-      alert("Por favor, ingresa tu nombre.");
+      $("#errorMessage").text("Por favor, ingresa tu nombre.");
+      $("#errorModal").css("display", "block");
       return;
     }
 
@@ -341,7 +371,47 @@ $(document).ready(async function () {
     }
   });
 
+  // Funciones de musica
+  $("#playPause").click(function () {
+    if (isPlayingSound) {
+      audio.pause();
+      $("#playPause").html('<i class="fas fa-play"></i>');
+    }
+    if (!isPlayingSound) {
+      audio.loop = true;
+      audio.play();
+      $("#playPause").html('<i class="fas fa-pause"></i>');
+    }
+    isPlayingSound = !isPlayingSound;
+  });
+
+  $("#volume").change(function () {
+    audio.volume = $(this).val();
+  });
+
+  $("#btnAudioPlayer").click(function () {
+    $("#audioPlayer").removeClass("hidden");
+    $("#btnAudioPlayer").addClass("hidden");
+  });
+
+  $("#closeAudioPlayer").click(function () {
+    $("#audioPlayer").addClass("hidden");
+    $("#btnAudioPlayer").removeClass("hidden");
+  });
+
+  $("#playPause").click();
+
+  // Eventos de los modals
+  $(".close").click(function () {
+    $(".modal").css("display", "none");
+  });
+
+  $(".modal").click(function (e) {
+    if (e.target === this) {
+      $(this).css("display", "none");
+    }
+  });
+
   // Call de funciones al cargar la pagina
   actualizarTabla();
-  playAudio();
 });
