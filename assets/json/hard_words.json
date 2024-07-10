@@ -22,5 +22,69 @@
       "Es una planta que da semillas",
       "Es una planta que da flor"
     ]
+  },
+  {
+    "word": "HIPOPOTAMO",
+    "clue": ["Es un mamífero", "Es un animal grande", "Vive en ríos y lagos"]
+  },
+  {
+    "word": "ORNITORRINCO",
+    "clue": ["Es un mamífero", "perry el", "Pone huevos"]
+  },
+  {
+    "word": "TARANTULA",
+    "clue": [
+      "Es un arácnido",
+      "Tiene ocho patas",
+      "Algunas especies son venenosas"
+    ]
+  },
+  {
+    "word": "CALIGRAFO",
+    "clue": [
+      "Es una persona",
+      "Se dedica a escribir",
+      "Destaca por la belleza de su escritura"
+    ]
+  },
+  {
+    "word": "HEMISFERIO",
+    "clue": [
+      "Es una mitad de la Tierra",
+      "Puede ser norte o sur",
+      "Separa el ecuador"
+    ]
+  },
+  {
+    "word": "NEUROCIENCIA",
+    "clue": [
+      "Es una rama de la ciencia",
+      "Estudia el sistema nervioso",
+      "Incluye disciplinas como la biología y la psicología"
+    ]
+  },
+  {
+    "word": "CRIPTOMONEDA",
+    "clue": [
+      "Es una forma de dinero",
+      "Es digital",
+      "Funciona con tecnología blockchain"
+    ]
+  },
+  {
+    "word": "AERONAUTICA",
+    "clue": [
+      "Es una ciencia",
+      "Estudia la navegación aérea",
+      "Incluye el diseño de aeronaves"
+    ]
+  },
+  {
+    "word": "PARALELOGRAMO",
+    "clue": [
+      "Es una figura geométrica",
+      "Tiene lados opuestos paralelos",
+      "Sus ángulos pueden variar"
+    ]
   }
 ]

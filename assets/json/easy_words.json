@@ -19,5 +19,53 @@
       "Sirve para desplazarse",
       "Te lleva al trabajo"
     ]
+  },
+  {
+    "word": "LIBRO",
+    "clue": [
+      "Es una fuente de conocimiento",
+      "Tiene muchas páginas",
+      "Se usa para leer"
+    ]
+  },
+  {
+    "word": "SOL",
+    "clue": ["Es una estrella", "Nos da luz y calor", "Sale por el este"]
+  },
+  {
+    "word": "TELEFONO",
+    "clue": [
+      "Sirve para comunicarse",
+      "Tiene botones o pantalla táctil",
+      "Puedes hacer llamadas con él"
+    ]
+  },
+  {
+    "word": "GATO",
+    "clue": [
+      "Es un animal",
+      "Es un animal doméstico",
+      "Es conocido por su agilidad"
+    ]
+  },
+  {
+    "word": "MESA",
+    "clue": [
+      "Es un mueble",
+      "Tiene una superficie plana",
+      "Se usa para comer o trabajar"
+    ]
+  },
+  {
+    "word": "AGUA",
+    "clue": ["Es un líquido", "Es esencial para la vida", "Puedes beberla"]
+  },
+  {
+    "word": "ZAPATOS",
+    "clue": [
+      "Son una prenda de vestir",
+      "Se usan en los pies",
+      "Pueden ser de muchos estilos y colores"
+    ]
   }
 ]
