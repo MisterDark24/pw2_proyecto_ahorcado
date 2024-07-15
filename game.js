@@ -45,36 +45,42 @@ var juegos = [
     partidasJugadas: 9,
     totalGanados: 3,
     totalPerdidos: 6,
+    totalAbandonados: 0,
     porcentajeVictorias: 33.33,
     partidas: [
       {
         dificultad: "facil",
         ganados: 2,
         perdidos: 3,
+        abandonados: 0,
       },
       {
         dificultad: "avanzado",
         ganados: 1,
         perdidos: 3,
+        abandonados: 0,
       },
     ],
   },
   {
     nombre: "Eduardo",
-    partidasJugadas: 6,
+    partidasJugadas: 7,
     totalGanados: 2,
     totalPerdidos: 4,
-    porcentajeVictorias: 33.33,
+    totalAbandonados: 1,
+    porcentajeVictorias: 28.57,
     partidas: [
       {
         dificultad: "facil",
         ganados: 1,
         perdidos: 2,
+        abandonados: 0,
       },
       {
         dificultad: "avanzado",
         ganados: 1,
         perdidos: 2,
+        abandonados: 0,
       },
     ],
   },
@@ -190,7 +196,7 @@ function resetGame() {
 }
 
 // Funciones de estadisticas
-function registrarEstadistica(ganado) {
+function registrarEstadistica(ganado, abandonado = false) {
   /* Esta funcion se encarga de registrar las estadisticas del jugador */
   // Buscar si el jugador ya tiene estadisticas registradas
   let jugadorStats = juegos.find((juego) => juego.nombre === nombreJugador);
@@ -202,17 +208,20 @@ function registrarEstadistica(ganado) {
       partidasJugadas: 0,
       totalGanados: 0,
       totalPerdidos: 0,
+      totalAbandonados: 0,
       porcentajeVictorias: 0,
       partidas: [
         {
           dificultad: "facil",
           ganados: 0,
           perdidos: 0,
+          abandonados: 0,
         },
         {
           dificultad: "avanzado",
           ganados: 0,
           perdidos: 0,
+          abandonados: 0,
         },
       ],
     };
@@ -228,15 +237,21 @@ function registrarEstadistica(ganado) {
   );
 
   // Si gano, aumentar las partidas ganadas
-  if (ganado) {
+  if (ganado && !abandonado) {
     jugadorStats.totalGanados++;
     partidaStats.ganados++;
   }
 
   // Si perdio, aumentar las partidas perdidas
-  if (!ganado) {
+  if (!ganado && !abandonado) {
     jugadorStats.totalPerdidos++;
     partidaStats.perdidos++;
+  }
+
+  // Si abandono, aumentar las partidas abandonadas
+  if (abandonado) {
+    jugadorStats.totalAbandonados++;
+    partidaStats.abandonados++;
   }
 
   // Calcular el porcentaje de victorias del jugador
@@ -261,8 +276,18 @@ function dibujarGraficos(nombreJugador) {
   data.addColumn("string", "Dificultad");
   data.addColumn("number", "Partidas");
   data.addRows([
-    ["Facil", jugador.partidas[0].ganados + jugador.partidas[0].perdidos],
-    ["Avanzado", jugador.partidas[1].ganados + jugador.partidas[1].perdidos],
+    [
+      "Facil",
+      jugador.partidas[0].ganados +
+        jugador.partidas[0].perdidos +
+        jugador.partidas[0].abandonados,
+    ],
+    [
+      "Avanzado",
+      jugador.partidas[1].ganados +
+        jugador.partidas[1].perdidos +
+        jugador.partidas[1].abandonados,
+    ],
   ]);
 
   let options = {
@@ -281,10 +306,11 @@ function dibujarGraficos(nombreJugador) {
   data2.addRows([
     ["Ganadas", jugador.totalGanados],
     ["Perdidas", jugador.totalPerdidos],
+    ["Abandonadas", jugador.totalAbandonados],
   ]);
 
   let options2 = {
-    title: "Partidas ganadas y perdidas",
+    title: "Partidas Jugadas por Resultado",
     backgroundColor: whiteColor,
   };
 
@@ -309,6 +335,7 @@ function actualizarTabla() {
       <td>${juego.partidasJugadas}</td>
       <td>${juego.totalGanados}</td>
       <td>${juego.totalPerdidos}</td>
+      <td>${juego.totalAbandonados}</td>
       <td>${juego.porcentajeVictorias.toFixed(2)}%</td>
       <td>
       <button class="btn btn-primary" onclick="dibujarGraficos('${
@@ -363,6 +390,30 @@ $(document).ready(function () {
     let letra = $("#guess").val();
     $("#guess").val("");
     adivinarLetra(letra);
+  });
+
+  $("#giveUp").click(function () {
+    $("#confirmMessage").text("¿Estás seguro que deseas abandonar la partida?");
+    $("#confirmModal").css("display", "block");
+
+    $("#confirmYes").click(function () {
+      registrarEstadistica(false, true);
+      resetGame();
+      $("#confirmModal").css("display", "none");
+      $("#confirmYes").off("click");
+    });
+
+    $("#confirmNo").click(function () {
+      $("#confirmModal").css("display", "none");
+      $("#confirmNo").off("click");
+    });
+
+    $("#confirmModal").click(function (e) {
+      if (e.target === this) {
+        $(this).css("display", "none");
+      }
+      $("#confirmYes").off("click");
+    });
   });
 
   $("#guess").keypress(function (e) {

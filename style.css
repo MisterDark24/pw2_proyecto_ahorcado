@@ -81,6 +81,10 @@ button:hover {
   background-color: var(--secondary-color);
 }
 
+#giveUp {
+  background-color: var(--error-color);
+}
+
 #word {
   font-size: 24px;
   letter-spacing: 2px;

@@ -43,9 +43,14 @@
       <div id="attempts"></div>
       <p id="clue"></p>
       <input type="text" id="guess" maxlength="1" />
+      <br />
       <button id="submitGuess">
         <i class="fas fa-check"></i>
         Adivinar
+      </button>
+      <button id="giveUp">
+        <i class="fas fa-flag"></i>
+        Abandonar
       </button>
     </div>
     <div id="statsArea">
@@ -57,6 +62,7 @@
             <th>Partidas jugadas</th>
             <th>Partidas ganadas</th>
             <th>Partidas perdidas</th>
+            <th>Partidas abandonadas</th>
             <th>Porcentaje de victorias</th>
             <th>Mas Detalles</th>
           </tr>
@@ -106,6 +112,16 @@
         <span class="close">&times;</span>
         <h2 class="error-text">¡Error!</h2>
         <p id="errorMessage"></p>
+      </div>
+    </div>
+
+    <div class="modal" id="confirmModal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>¡Atención!</h2>
+        <p id="confirmMessage"></p>
+        <button id="confirmYes">Sí</button>
+        <button id="confirmNo">No</button>
       </div>
     </div>
   </body>
